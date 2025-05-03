@@ -9,7 +9,6 @@ from langchain_community.vectorstores import FAISS
 # Initialize Flask app
 app = Flask(__name__)
 
-# Get Hugging Face token from environment
 HF_TOKEN = os.environ.get("HF_TOKEN")
 HUGGINGFACE_REPO_ID = "mistralai/Mistral-7B-Instruct-v0.3"
 
