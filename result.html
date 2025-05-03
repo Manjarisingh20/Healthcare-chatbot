@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Result</title>
+    <style>
+        /* Add custom styles for chatbot interface */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chatbot-container {
+            background: white;
+            border-radius: 10px;
+            width: 400px;
+            max-height: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color:#7a4caf;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            justify-content: space-between;
+        }
+
+        .bot-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .bot-avatar {
+            font-size: 28px;
+            margin-right: 10px;
+        }
+
+        .bot-info div {
+            font-size: 14px;
+        }
+
+        .chat-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .message {
+            background-color: #e1f5fe;
+            border-radius: 15px;
+            padding: 10px 15px;
+            margin: 10px 0;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            background-color: #e1f5fe;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background-color: #c8e6c9;
+            align-self: flex-end;
+        }
+
+        .source-list {
+            margin-top: 10px;
+            padding-left: 20px;
+            list-style: none;
+        }
+
+        .source-list li {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .chat-footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .ask-again-btn {
+            background-color: #7a4caf;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            font-size: 24px;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="chatbot-container">
+        <div class="chat-header">
+            <div class="bot-info">
+                <div class="bot-avatar">🤖</div>
+                <div>
+                    <strong>MediBot</strong>
+                    <p>Your friendly health companion</p>
+                </div>
+            </div>
+            <a href="/" class="close-btn">&times;</a>
+        </div>
+
+        <div class="chat-body">
+            <div class="message bot-message">{{ result }}</div>
+            {% if source_documents %}
+            <div class="message bot-message">
+                <strong>Sources:</strong>
+                <ul class="source-list">
+                    {% for doc in source_documents %}
+                        <li>{{ doc.metadata.get('source', 'Unknown Source') }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="chat-footer">
+            <a href="/" class="ask-again-btn">Ask another question</a>
+        </div>
+    </div>
+</body>
+</html>
